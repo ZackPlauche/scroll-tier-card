@@ -12,7 +12,9 @@
   --blue: #4472C4;
 
   /* Theme Colors */
-  --primary: var(--blue);
+  --primary: var(--medium-blue);
+  --primary-light: #5593ff;
+  --primary-dark: #1e3864;
   --secondary: var(--orange);
 
   /* Fonts */
@@ -41,51 +43,39 @@ body {
 }
 
 
-.scroll-card-container {
-  --dot-color: var(--primary);
-  --dot-size: 25px;
-  --card-max-width: 600px;
+.button-reset {
+  border: none;
+  background-color: unset;
+  font-family: var(--base-font);
 }
 
 
+/* Scroll Card Bar */
 
-/* Slider */
-
-.scroll-card-slider {
-  display: block;
-  -webkit-appearance: none;
-  appearance: none;
-  width: 100%;
-  max-width: var(--card-max-width);
-  margin: 0 auto;
-  border-radius: 100vh;
-  height: 5px;
-  background: #d3d3d3;
-  outline: none;
-  opacity: 0.7;
-  margin-bottom: 30px;
+.scroll-card-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--orange);
+  padding: 10px;
+  border-radius: 10px;
+  margin-bottom: 20px;
 }
 
-.scroll-card-slider:hover { opacity: 1 }
-
-.scroll-card-slider::-webkit-slider-thumb {
-  --size: var(--dot-size);
-  -webkit-appearance: none;
+.scroll-card-bar-dot {
+  --size: 40px;
+  background-color: var(--grey);
   height: var(--size);
   width: var(--size);
-  appearance: none;
-  background: var(--dot-color);
-  cursor: pointer;
   border-radius: 100vh;
+  cursor: pointer;
+  transition: background-color .1s ease;
 }
 
-.scroll-card-slider:-moz-range-thumb {
-  --size: var(--dot-size);
-  height: var(--size);
-  width: var(--size);
-  background: var(--dot-color);
-  cursor: pointer;
-  border-radius: 100vh;
+.scroll-card-bar-dot:hover,
+.scroll-card-bar-dot:focus,
+.scroll-card-bar-dot.active {
+  background-color: var(--light-grey);
 }
 
 
@@ -96,7 +86,7 @@ body {
   box-shadow: 0 2.5px 10px lightgrey;
   border-radius: 10px;
   padding: 20px 15px 15px;
-  max-width: var(--card-max-width);
+  max-width: 600px;
   margin: 0 auto;
 }
 
@@ -130,6 +120,7 @@ body {
   justify-content: center;
   align-items: center;
   margin-bottom: 20px;
+  transition: opacity .2s ease .2s;
 }
 
 .scroll-card-subscription-model-option {
@@ -137,9 +128,11 @@ body {
   display: flex;
   box-shadow: 0 0 1px black;
   padding: 7.5px 10px;
+  cursor: pointer;
 }
 
-.scroll-card-subscription-model-option:not(.active):hover {
+.scroll-card-subscription-model-option:not(.active):hover,
+.scroll-card-subscription-model-option:not(.active):focus {
   color: var(--primary);
 }
 
@@ -166,6 +159,7 @@ body {
 
 .scroll-card-subscribe-button {
   display: inline-block;
+  text-decoration: none;
   padding: 10px;
   font-size: 24px;
   width: 100%;
@@ -177,8 +171,19 @@ body {
   transition: background-color .2s ease, color .2s ease;
 }
 
-.scroll-card-subscribe-button:hover {
+.scroll-card-subscribe-button:hover,
+.scroll-card-subscribe-button:focus {
   color: white;
   background-color: var(--primary);
 }
 
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity .2s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}

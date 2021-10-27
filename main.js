@@ -1,7 +1,6 @@
 
-let range = n => Array.from(Array(n).keys())
 
-const levels = [
+const tiers = [
     {
         title: 'Basic Subscription',
         level: 1,
@@ -11,7 +10,7 @@ const levels = [
             'Single Membership to Peer Network (online platform)',
             'Individual Competency Assessment',
             'Benchmark Reports',
-            'Member Pricing tfor CPE Certified Events (approx. 12 CPEs per year)',
+            'Member Pricing for CPE Certified Events (approx. 12 CPEs per year)',
         ]
     },
     {
@@ -20,10 +19,12 @@ const levels = [
         monthlyRate: 125,
         annualRate: 1500,
         features: [
-            'Leadership Assessment iwth Role/Title Benchmark',
+            'Leadership Assessment with Role/Title Benchmark',
             'LMS access for up to 3 team Members',
             'Benchmarking Diagnostic Tools',
-            'SME Led Online Q&A',
+            'SME led online Q&A - Office Hours',
+            '1-hour Linkedin profile/bio/resume consultation',
+            'AchieveNEXT will provide a recommendation to serve on boards (partner of The Boardlist)',
         ]
     },
     {
@@ -36,50 +37,65 @@ const levels = [
             'Meet every 6 weeks',
             'Private online discussion group', 
             'Personalized Assessment reports',
-            'One-time 1-1 session with an executive coach.',
+            'One-time 1-1 session with an executive coach',
             'Quarterly tabletop exercises from leading technical and industry experts',
-            'Complimentary access to AchieveNEXT\'s annual conference.'
+            'Complimentary access to AchieveNEXT\'s annual conference'
         ]
     }
 ]
 
+
 const ScrollCard = {
-    setup() {
-        return { levels }
-    },
-    data() {
-        return {
-            level: 1,
-            subscriptionModel: 'Monthly',
-        }
+    template: /*html*/
+        `<div class="scroll-card">
+            <slot>
+                <div class="scroll-card-title">{{ tier.title }}</div>
+                <div class="scroll-card-price" style="margin-bottom: 10px;">\${{ price }}<span class="scroll-card-subscription-model-abbreviation">/{{ subscriptionModelAbbr }}</span></div>
+                <div class="scroll-card-features">
+                    <ul class="scroll-card-features-list">
+                        <li v-if="tier.level > 1" style="list-style: none; font-weight: bold; margin-bottom: 10px;">Everything from the previous tier, plus...</li>
+                        <li v-for="feature in tier.features" class="scroll-card-feature">{{ feature }}</li>
+                    </ul>
+                </div>
+                <a class="scroll-card-subscribe-button" href="#">Subscribe</a>
+            </slot>
+        </div>`,
+    props: {
+        tier: Object,
+        subscriptionModel: String,
     },
     computed: {
-        currentLevel() { return this.levels[this.level - 1] },
+        price() { 
+            if (this.subscriptionModel === 'Monthly') { return this.tier.monthlyRate }
+            else if (this.subscriptionModel === 'Annually') { return this.tier.annualRate}
+        },
         subscriptionModelAbbr() {
-            if (this.subscriptionModel === 'Monthly') {
-                return 'mo'
-            } else if (this.subscriptionModel == 'Anually') {
-                return 'yr'
-            }
+            if (this.subscriptionModel === 'Monthly') { return 'mo' } 
+            else if (this.subscriptionModel == 'Annually') { return 'yr' }
         },
-        title() { return this.currentLevel.title },
-        price() {
-            if (this.subscriptionModel === 'Monthly') {
-                return this.currentLevel.monthlyRate
-            } else if (this.subscriptionModel === 'Anually') {
-                return this.currentLevel.annualRate
-            }
-        },
-        features() {
-            let featureList = []
-            range(this.level).forEach(function (i) {
-                this.levels[i].features.forEach(feature => featureList.push(feature))
-            }, this)
-            return featureList
-        }
     },
-
 }
 
 
-const app = Vue.createApp(ScrollCard).mount('.scroll-card-container')
+const App = {
+    template: /*html*/
+        ``,
+    components: {
+        ScrollCard,
+    },
+    setup() { return { tiers } },
+    data() {
+        return {
+            currentLevel: 0,
+            subscriptionModel: 'Monthly',
+        }
+    },
+    methods: {
+        range: n => Array.from(Array(n).keys())
+    }
+    
+}
+
+const app = Vue.createApp(App)
+
+app.mount('.scroll-card-container')

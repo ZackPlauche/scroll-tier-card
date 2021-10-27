@@ -13,34 +13,49 @@
         <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
         <!-- Vue -->
         <script src="https://unpkg.com/vue@next"></script>
-        
+
         <link rel="stylesheet" href="style.css">
     </head>
 
     <body>
         <div class="container">
             <section class="scroll-card-container">
-                <input type="range" min="1" max="3" step="1" class="scroll-card-slider" name="level" id="level" v-model.number="level">
-                <div class="scroll-card-subscription-model">
-                    <div class="scroll-card-subscription-model-option" :class="{ active: subscriptionModel === 'Monthly' }">
-                        <input type="radio" name="monthly" id="monthly" value="Monthly" v-model="subscriptionModel">
-                        <label for="monthly">Monthly</label>
-                    </div>
-                    <div class="scroll-card-subscription-model-option" :class="{ active: subscriptionModel === 'Anually' }">
-                        <input type="radio" name="anually" id="anually" value="Anually" v-model="subscriptionModel">
-                        <label for="anually">Annually</label>
-                    </div>
+                <div class="scroll-card-bar">
+                    <button 
+                        v-for="i in range(tiers.length + 1)" 
+                        class="scroll-card-bar-dot button-reset" 
+                        :class="{ active: currentLevel === i }" 
+                        @click="currentLevel = i"
+                        ></button>
                 </div>
-                <div class="scroll-card">
-                    <div class="scroll-card-title">{{ title }}</div>
-                    <div class="scroll-card-price" style="margin-bottom: 10px;">${{ price }}<span class="scroll-card-subscription-model-abbreviation">/{{ subscriptionModelAbbr }}</span></div>
-                    <div class="scroll-card-features">
-                        <ul class="scroll-card-features-list">
-                            <li>Everything from the previous tier, plus...</li>
-                            <li v-for="feature in features" class="scroll-card-feature">{{ feature }}</li>
-                        </ul>
+
+                <transition name="fade">
+                    <div class="scroll-card-subscription-model" :style="currentLevel !== 0 ? '':'opacity: 0;'">
+                        <button 
+                            class="scroll-card-subscription-model-option button-reset" 
+                            :class="{ active: subscriptionModel === 'Monthly' }" 
+                            @click="subscriptionModel = 'Monthly'"
+                            >Monthly</button>
+                        <button 
+                            class="scroll-card-subscription-model-option button-reset" 
+                            :class="{ active: subscriptionModel === 'Annually' }" 
+                            @click="subscriptionModel = 'Annually'"
+                            >Annually</button>
                     </div>
-                    <a class="scroll-card-subscribe-button">Subscribe</a>
+                </transition>
+
+                <div class="scroll-card-list">
+                    <transition name="fade" mode="out-in">
+                        <scroll-card v-if="currentLevel === 0">
+                            This is a great start. It is clear that you value Peer Networking and benchmarking.
+                            <br>
+                            <br>
+                            Contact us to learn more: <a href="mailto:info@achievenext.com">info@achievenext.com</a>
+                        </scroll-card>
+                        <scroll-card v-else-if="currentLevel === tiers[0].level" :tier="tiers[0]" :subscription-model="subscriptionModel"></scroll-card>
+                        <scroll-card v-else-if="currentLevel === tiers[1].level" :tier="tiers[1]" :subscription-model="subscriptionModel"></scroll-card>
+                        <scroll-card v-else-if="currentLevel === tiers[2].level" :tier="tiers[2]" :subscription-model="subscriptionModel"></scroll-card>
+                    </transition>
                 </div>
             </section>
         </div>
