@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <title>Document</title>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <!-- Google Fonts -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+        <!-- Vue -->
+        <script src="https://unpkg.com/vue@next"></script>
+        
+        <link rel="stylesheet" href="style.css">
+    </head>
+
+    <body>
+        <div class="container">
+            <section class="scroll-card-container">
+                <input type="range" min="1" max="3" step="1" class="scroll-card-slider" name="level" id="level" v-model.number="level">
+                <div class="scroll-card-subscription-model">
+                    <div class="scroll-card-subscription-model-option" :class="{ active: subscriptionModel === 'Monthly' }">
+                        <input type="radio" name="monthly" id="monthly" value="Monthly" v-model="subscriptionModel">
+                        <label for="monthly">Monthly</label>
+                    </div>
+                    <div class="scroll-card-subscription-model-option" :class="{ active: subscriptionModel === 'Anually' }">
+                        <input type="radio" name="anually" id="anually" value="Anually" v-model="subscriptionModel">
+                        <label for="anually">Annually</label>
+                    </div>
+                </div>
+                <div class="scroll-card">
+                    <div class="scroll-card-title">{{ title }}</div>
+                    <div class="scroll-card-price" style="margin-bottom: 10px;">${{ price }}<span class="scroll-card-subscription-model-abbreviation">/{{ subscriptionModelAbbr }}</span></div>
+                    <div class="scroll-card-features">
+                        <ul class="scroll-card-features-list">
+                            <li>Everything from the previous tier, plus...</li>
+                            <li v-for="feature in features" class="scroll-card-feature">{{ feature }}</li>
+                        </ul>
+                    </div>
+                    <a class="scroll-card-subscribe-button">Subscribe</a>
+                </div>
+            </section>
+        </div>
+        <script type="module" src="main.js"></script>
+    </body>
+
+</html>

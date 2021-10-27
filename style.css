@@ -1,0 +1,184 @@
+:root {
+
+  /* Brand Colors */
+  --orange: #DA471f;
+  --grey: #4d4d4f;
+  --white: #fff;
+  --black: black;
+  --medium-blue: #698986;
+  --medium-grey: #598582;
+  --dark-green: #44543A;
+  --light-grey: #bec3b8;
+  --blue: #4472C4;
+
+  /* Theme Colors */
+  --primary: var(--blue);
+  --secondary: var(--orange);
+
+  /* Fonts */
+  --base-font: Arial;
+  --heading-font: 'Roboto', sans-serif;
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+
+
+body {
+  padding: 50px 0 0;
+  font-family: var(--base-font);
+  background-color: white;
+}
+
+.container {
+  width: 95%;
+  margin: 0 auto;
+  max-width: 1400px;
+}
+
+
+.scroll-card-container {
+  --dot-color: var(--primary);
+  --dot-size: 25px;
+  --card-max-width: 600px;
+}
+
+
+
+/* Slider */
+
+.scroll-card-slider {
+  display: block;
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  max-width: var(--card-max-width);
+  margin: 0 auto;
+  border-radius: 100vh;
+  height: 5px;
+  background: #d3d3d3;
+  outline: none;
+  opacity: 0.7;
+  margin-bottom: 30px;
+}
+
+.scroll-card-slider:hover { opacity: 1 }
+
+.scroll-card-slider::-webkit-slider-thumb {
+  --size: var(--dot-size);
+  -webkit-appearance: none;
+  height: var(--size);
+  width: var(--size);
+  appearance: none;
+  background: var(--dot-color);
+  cursor: pointer;
+  border-radius: 100vh;
+}
+
+.scroll-card-slider:-moz-range-thumb {
+  --size: var(--dot-size);
+  height: var(--size);
+  width: var(--size);
+  background: var(--dot-color);
+  cursor: pointer;
+  border-radius: 100vh;
+}
+
+
+/* Card */
+
+.scroll-card {
+  font-family: var(--heading-font);
+  box-shadow: 0 2.5px 10px lightgrey;
+  border-radius: 10px;
+  padding: 20px 15px 15px;
+  max-width: var(--card-max-width);
+  margin: 0 auto;
+}
+
+.scroll-card-title {
+  font-weight: 500;
+  text-align: center;
+  font-size: 40px;
+  margin-bottom: 10px;
+}
+
+.scroll-card-price {
+  text-align: center;
+  font-size: 32px;
+}
+
+.scroll-card-subscription-model-abbreviation {
+  font-size: 20px;
+}
+
+.scroll-card-features-list {
+  margin: 16px 0;
+  padding-left: 40px;
+}
+
+.scroll-card-feature {
+  font-size: 16px;
+}
+
+.scroll-card-subscription-model {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.scroll-card-subscription-model-option {
+  position: relative;
+  display: flex;
+  box-shadow: 0 0 1px black;
+  padding: 7.5px 10px;
+}
+
+.scroll-card-subscription-model-option:not(.active):hover {
+  color: var(--primary);
+}
+
+.scroll-card-subscription-model-option:first-of-type { border-radius: 5px 0 0 5px; }
+.scroll-card-subscription-model-option:last-of-type { border-radius: 0 5px 5px 0; }
+
+
+.scroll-card-subscription-model-option.active {
+  background-color: var(--primary);
+  color: white;
+  box-shadow: 0 0 1px var(--primary);
+}
+
+.scroll-card-subscription-model-option input {
+  opacity: 0;
+  position: absolute;
+  cursor: pointer;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+}
+
+.scroll-card-subscribe-button {
+  display: inline-block;
+  padding: 10px;
+  font-size: 24px;
+  width: 100%;
+  border-radius: 5px;
+  text-align: center;
+  cursor: pointer;
+  color: var(--primary);
+  box-shadow: inset 0 0 0 1px var(--primary);
+  transition: background-color .2s ease, color .2s ease;
+}
+
+.scroll-card-subscribe-button:hover {
+  color: white;
+  background-color: var(--primary);
+}
+
