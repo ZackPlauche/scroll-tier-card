@@ -11,8 +11,9 @@
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+
         <!-- Vue -->
-        <script src="https://unpkg.com/vue@next"></script>
+        <script src="https://unpkg.com/vue@3.2.20"></script>
 
         <link rel="stylesheet" href="style.css">
     </head>
@@ -20,43 +21,6 @@
     <body>
         <div class="container">
             <section class="scroll-card-container">
-                <div class="scroll-card-bar">
-                    <button 
-                        v-for="i in range(tiers.length + 1)" 
-                        class="scroll-card-bar-dot button-reset" 
-                        :class="{ active: currentLevel === i }" 
-                        @click="currentLevel = i"
-                        ></button>
-                </div>
-
-                <transition name="fade">
-                    <div class="scroll-card-subscription-model" :style="currentLevel !== 0 ? '':'opacity: 0;'">
-                        <button 
-                            class="scroll-card-subscription-model-option button-reset" 
-                            :class="{ active: subscriptionModel === 'Monthly' }" 
-                            @click="subscriptionModel = 'Monthly'"
-                            >Monthly</button>
-                        <button 
-                            class="scroll-card-subscription-model-option button-reset" 
-                            :class="{ active: subscriptionModel === 'Annually' }" 
-                            @click="subscriptionModel = 'Annually'"
-                            >Annually</button>
-                    </div>
-                </transition>
-
-                <div class="scroll-card-list">
-                    <transition name="fade" mode="out-in">
-                        <scroll-card v-if="currentLevel === 0">
-                            This is a great start. It is clear that you value Peer Networking and benchmarking.
-                            <br>
-                            <br>
-                            Contact us to learn more: <a href="mailto:info@achievenext.com">info@achievenext.com</a>
-                        </scroll-card>
-                        <scroll-card v-else-if="currentLevel === tiers[0].level" :tier="tiers[0]" :subscription-model="subscriptionModel"></scroll-card>
-                        <scroll-card v-else-if="currentLevel === tiers[1].level" :tier="tiers[1]" :subscription-model="subscriptionModel"></scroll-card>
-                        <scroll-card v-else-if="currentLevel === tiers[2].level" :tier="tiers[2]" :subscription-model="subscriptionModel"></scroll-card>
-                    </transition>
-                </div>
             </section>
         </div>
         <script type="module" src="main.js"></script>

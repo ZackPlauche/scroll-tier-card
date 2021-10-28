@@ -30,12 +30,6 @@
 
 
 
-body {
-  padding: 50px 0 0;
-  font-family: var(--base-font);
-  background-color: white;
-}
-
 .container {
   width: 95%;
   margin: 0 auto;
@@ -47,6 +41,10 @@ body {
   border: none;
   background-color: unset;
   font-family: var(--base-font);
+}
+
+.scroll-card-container {
+  margin: 10px 0;
 }
 
 
